@@ -1,0 +1,51 @@
+OPENSSL:
+1  ls -l
+    2  openssl genrsa -out bob.priv 512
+    3  ls -l
+    4  cat bob.priv
+    5  openssl rsa -in bob.priv -text -noout
+    6  openssl rsa -in bob.priv -out bob.pub -pubout
+    7  ls -l
+    8  cat bob.pub
+    9  openssl rsa -in bob.pub -pubin -text -noout
+   10  openssl pkcs8 -topk8 -in bob.priv -out bob.priv.enc
+   11  ls -l
+   12  head -3 b*
+   13  openssl rsa -in bob.priv.enc -text -noout
+   14  openssl pkcs8 -topk8 -in bob.priv.enc -nocrypt
+   15  date > text
+   16  cat text
+   17  ls -l
+   18  openssl pkeyutl -encrypt -inkey bob.pub -pubin -in text -out text.enc
+   19  openssl pkeyutl -decrypt -inkey bob.priv -in text.enc
+   20  ls -l
+   21  xxd text
+   22  xxd text.enc
+   23  openssl pkeyutl -sign -in text -out text.enc2 -inkey bob.priv
+   24  openssl pkeyutl -verifyrecover -in text.enc2 -inkey bob.pub -pubin
+   25  openssl genrsa -out alice.priv 1024
+   26  ls -l
+   27  openssl rsa -in alice.priv -out alice.pub
+   28  openssl rsa -in alice.priv -out alice.pub -pubout
+   29  openssl dgst -sign alice.priv -out text.sign -sha256  text
+   30  ls -l
+   31  openssl dgst -verify alice.pub -signature text.sign -sha256 text
+   32  trust list
+   33  trust list | grep HARICA
+   34  mkdir certs
+   35  cd certs
+   36  ls -l
+   37  openssl genrsa -out ca.key 1024
+   38  openssl req -key ca.key -new -out ca.csr
+   39  ls -l
+   40  openssl req -text -noout -in ca.csr
+   41  openssl x509 -req -days 1000 -in ca.csr -out ca.csr -signkey ca.key
+   42  openssl x509 -text -noout -in ca.crt
+   43  openssl x509 -text -noout -in ca.csr
+   44  openssl genrsa -out web.key 1024
+   45  openssl  req -new -key web.key -out web.csr
+   46  openssl x509 -req -days 100 -in web.csr -out web.crt
+   47  openssl x509 -req -days 100 -in web.csr -out web.crt -CA ca.crt -CAkey ca.key -CAserial ca.srl -CAcreateserial
+   48  openssl x509 -req -days 100 -in web.csr -out web.crt -CA ca.csr -CAkey ca.key -CAserial ca.srl -CAcreateserial
+   49  clear
+   50  history
