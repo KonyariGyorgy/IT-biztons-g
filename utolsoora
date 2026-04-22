@@ -1,0 +1,39 @@
+1  clear
+    2  it-challenge init 60915602-1071-49a8-b860-71cef2c87ec6
+    3  chown operator /root/198084.txt
+    4  it-challenge init 60915602-1071-49a8-b860-71cef2c87ec6
+    5  it-challenge submit 60915602-1071-49a8-b860-71cef2c87ec6
+    6  openssl genrsa /root/198085.pem
+    7  openssl genrsa /root/198085.pem 512
+    8  openssl genrsa -out /root/198085.pem 512
+    9  it-challenge submit 60915602-1071-49a8-b860-71cef2c87ec6
+   10  useradd user198086
+   11  passwd -l user198086
+   12  it-challenge submit 60915602-1071-49a8-b860-71cef2c87ec6
+   13  clear
+   14  dnf install httpd
+   15  systemctl status httpd
+   16  ss -ltn
+   17  systemctl start httpd
+   18  firewall-cmd --list-all
+   19  firewall-cmd --get-active-zones
+   20  firewall-cmd --list-all  --zone=internal
+   21  firewall-cmd -add-service=http
+   22  firewall-cmd --add-service=http
+   23  firewall-cmd --add-port=80/tcp
+   24  cd /var/www/html
+   25  ls -l
+   26  curl -O https://arato.inf.unideb.hu/kadek.tamas/unsafe.html
+   27  dumpcap
+   28  dnf provide dumpcap
+   29  dnf provides dumpcap
+   30  dnf install -y wireshark-cli-1:3.4.10-8.el9cli
+   31  dnf install -y wireshark-cli
+   32  dumpcap
+   33  chmod 664 /var/tmp/wireshark_enp0s3jxsmOO.pcapng
+   34  ip a
+   35  dnf install -y mod-ssl
+   36  dnf install -y mod_ssl
+   37  systemctl restart httpd
+   38  firewall-cmd --add-service=https
+   39  history
